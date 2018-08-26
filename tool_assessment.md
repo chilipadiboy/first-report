@@ -1,5 +1,19 @@
 # Tool Assessment
 
+## Application Integration
+
+Our project uses Representational State Transfer (REST) API for communication between the client and the server. Using REST for development allows for Separation of Concerns, where the client-side code will not concern itself with writing SQL statements or the logic for accessing the database. Rather, it will only largely concern itself with the View. Furthermore, by having Separation of Concerns: 
+1. Development of user interface, the server and the data storage can be performed independently as they are loosely coupled to each other
+1. Debugging and spotting security flaws in our project becomes easier
+
+Our project uses [Spring framework](https://spring.io/) to create a RESTful web service. There are official guides on using this framework:
+1. [Performing Create, Read, Update, Delete (CRUD) with MySQL](https://spring.io/guides/gs/accessing-data-mysql/) and [here](https://dzone.com/articles/spring-boot-jpa-mysql-sample-app-code-example)
+1. [Securing a Web Application](https://spring.io/guides/gs/securing-web/) with Role-based Access Control
+1. [Using REST API to serve content](https://spring.io/guides/gs/serving-web-content/)
+1. [Developing an application using Spring from scratch](https://spring.io/guides/tutorials/bookmarks/)
+
+Since Spring only works on Java platform, Java will be used for server side development.
+
 ## Anonymising Data
 
 The purpose of [anonymising](http://kau.diva-portal.org/smash/get/diva2:1043735/FULLTEXT01.pdf) data is to make it impossible to:
