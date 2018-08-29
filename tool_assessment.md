@@ -2,7 +2,7 @@
 
 ## Application Integration
 
-To send data over HTTP (i.e. communication between the client and the server), we can use either GraphQL or REST. Using either GraphQL or REST for development allows for Separation of Concerns, where the client-side code will not concern itself with writing SQL statements or the logic for accessing the database. Rather, it will only largely concern itself with the View. Furthermore, by having Separation of Concerns: 
+To send data over HTTP (i.e. communication between the client and the server), we can use either GraphQL or REST. Using either technologies for development ensures Separation of Concerns, where the client-side code will largely only concern itself with the View / UI. It does not need to concern itself with writing SQL statements or the logic for accessing the database. Furthermore, by having Separation of Concerns: 
 1. Development of user interface, the server and the data storage can be performed independently as they are loosely coupled to each other.
 1. Debugging and spotting security flaws in our project becomes easier.
 
@@ -22,21 +22,22 @@ Our project uses [Spring framework](https://spring.io/) to create a web service 
 1. Spring allows us to easily [connect and perform operations to a MySQL database](https://dev.to/sambenskin/howto-integrate-a-mysql-database-into-your-java-spring-boot-graphql-service-26c).
 1. Spring works on Java platform, and most of us are familiar with Java.
 
+
 ## Anonymising Data
 
-The purpose of [anonymising](http://kau.diva-portal.org/smash/get/diva2:1043735/FULLTEXT01.pdf) data is to make it impossible to:
+[Anonymising](http://kau.diva-portal.org/smash/get/diva2:1043735/FULLTEXT01.pdf) data makes it impossible to:
 1. Single out an individual in the dataset. 
 1. Link records concerning the same individual.
 1. Infer the value of one attribute based on other values.
 
 This allows for researchers to retrieve data for research purposes without violating privacy concerns.
 
-There are 3 ways to ensure anonymity of data:
-1. [k-anonymity](https://en.wikipedia.org/wiki/K-anonymity). This is implemented by:
-    1. Suppression. For instance, all or some values of a particular column may be omitted through replacing it with a "\*".
-    1. Generalisation. For instance, the medical condition can be replaced by a more general term (e.g., “Cardiovascular disease” replaced by “Heart-related”).
+There are 3 ways to ensure data anonymity:
+1. [k-anonymity](https://en.wikipedia.org/wiki/K-anonymity), where at least k individuals in the dataset share the same set of attributes. This is implemented by:
+    1. Suppression. For instance, all or some values of a particular column may be omitted through replacing them with "\*".
+    1. Generalisation. For instance, the medical condition can be replaced with a more general term (e.g., “Cardiovascular disease” replaced with “Heart-related”).
     
-    An example of pre-anonymised data:
+    Example of pre-anonymised data:
     
     ![pre-anonymised data](https://github.com/IFS4205-2018-Sem1-Team1/first-report/raw/master/images/pre_anonymisation.png)
     
@@ -46,9 +47,9 @@ There are 3 ways to ensure anonymity of data:
 
 1. [Adding noise to the data](https://link.springer.com/article/10.1186/s40537-017-0110-7). This can be implemented by swapping cells within columns.
 
-1. Generating fake data. The fake data must be a good representation of the actual data.
+1. Generating fake data, where the fake data must be a good representation of the actual data.
 
-Since anonymising data is not the key focus of the project, we decided not to spend implement the algorithms if possible. Out of the 3 methods, only k-anonymity has an existing well-established [library](https://arx.deidentifier.org/overview/), complete with [examples](https://github.com/arx-deidentifier/arx/tree/master/src/example/org/deidentifier/arx/examples). Therefore, we've decided to use k-anonymity.
+Since anonymising data is not the key focus of the project, we decided not to spend time to implement the algorithms if possible. Out of the 3 methods discussed above, only k-anonymity has an existing well-established [library](https://arx.deidentifier.org/overview/), complete with [examples](https://github.com/arx-deidentifier/arx/tree/master/src/example/org/deidentifier/arx/examples). Therefore, k-anonymity will be used to ensure data anonymity.
 
 ## Encryption
 
@@ -77,9 +78,7 @@ AES [example](https://aesencryption.net/).
 
 ## Source Code Control & Issue Management
 
-Our project uses [GitHub](https://github.com/IFS4205-2018-Sem1-Team1) for source code control and issue management for the following reasons:
-1. It's a good tool for project management.
-1. Most of the team are familiar and comfortable with using GitHub. This is not the case for the alternatives.
+Our project uses [GitHub](https://github.com/IFS4205-2018-Sem1-Team1) for source code control and issue management because most of the team are familiar and comfortable with using GitHub. This is not the case for the alternatives.
 
 There are other alternatives such as:
 
@@ -89,18 +88,26 @@ There are other alternatives such as:
 Also, GitLab is lacking some features compared to GitHub such as having only a single assignee for issues. Since some issues may be quite hard to resolve, we may need to use GitHub's feature of having multiple assignees for issues. 
 Therefore, there's no compelling reason for us to use GitLab over GitHub.
 
+
 Reports will be written in .md (instead of .doc) to allow for version control of reports as well.
 
 ## DevOps Tools
 
 Our project will use [Ansible](https://www.ansible.com/) to ensure that our remote servers are all set up with the same configuration.  [This doc](https://docs.ansible.com/ansible/2.5/user_guide/intro_getting_started.html) will help us with setting up. We considered an alternative which was [Octopus Deploy](https://xebialabs.com/technology/octopus-deploy/). However, due to our limitation of using Linux as well as the cost, it is not viable to us this.
 
+### Configuration Management Tool
+
+A configuration management tool is great for our project as we are managing 3 remote servers with different functionalities, most likely serving their roles as a web server, an application server and a database server. 
+
+##### Comparison with other tools
+The most popular configuration management tools out there are Ansible, Salt, Puppet, and Chef. 
+
+Puppet and Chef are pull-based configuration management tools so that means that they pull all the configurations from a central server, which will not serve our needs. They also constrict users to using Ruby. Ansible and Salt, on the other hand, are push-based configuration tools which means users can directly push their configurations onto their node machines. We chose Ansible over Salt as Ansible has excellent security using SSH. It also has a less steep learning curve than Salt, which is important given that we do not have experience with these tools. 
+
 ## Security Tools
 
-To scan our web application for vulnerabilities like XSS, we will use [Metasploit](https://www.metasploit.com/) and [Arachni](http://www.arachni-scanner.com/). These tools are the most well known and widely used tools available.
+To scan our web application for vulnerabilities like XSS, we will use [OWASP ZAP](https://www.zaproxy.org/). [This article by Upguard](https://www.upguard.com/articles/arachni-vs-owasp-zap) makes a comparison between two of the most popular open source web application pen testing tools - Arachni and OWASP ZAP and we have decided on ZAP as it has more extensive community resources. 
 
-To scan our PHP code for vulnerabilities and weaknesses related to security, [phpcs-security-audit](https://github.com/FloeDesignTechnologies/phpcs-security-audit) will be used. 
+To find and fix known vulnerabilities in open-source dependencies, we would also use [Synk](https://github.com/Snyk/),  over SourceClear, which is not free, and Synk can be integrated easily with our Github repository.
 
-To find and fix known vulnerabilities in open-source dependencies, we would also use [Synk](https://github.com/Snyk/) that can be integrated easily with our Github repo
-
-We can also consider using [BDD-Security](https://www.continuumsecurity.net/bdd-security/) to launch automated scans with specific scenarios/ claims we want to keep. 
+As we would need to uphold our security claims to our users, we will also consider using [BDD-Security](https://www.continuumsecurity.net/bdd-security/) to launch automated scans with these specific security claims. There are other automated security testing frameworks like GauntIt, but BDD-Security has more example tests that we can employ, and it is much easier to setup with fewer prerequisites needed on the system. 
