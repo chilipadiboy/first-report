@@ -45,27 +45,24 @@ There are 3 ways to ensure data anonymity:
 
 Since anonymising data is not the key focus of the project, we decided not to spend time to implement the algorithms if possible. Out of the 3 methods discussed above, only k-anonymity has an existing well-established [library](https://arx.deidentifier.org/overview/), complete with [examples](https://github.com/arx-deidentifier/arx/tree/master/src/example/org/deidentifier/arx/examples). Therefore, k-anonymity will be used to ensure data anonymity.
 
-## Encryption
+## Secure Data Transfer
+We intend to have a web application in which [authorization](https://en.wikipedia.org/wiki/Authorization) is handled by [Apache Shiro](https://shiro.apache.org/) and [authentication](https://en.wikipedia.org/wiki/Authentication) by [JSON Web Token (JWT)](https://jwt.io/). This would ensure secure data transfer when a user logs in with his/her own credentials.
 
-The purpose of [encryption](https://en.wikipedia.org/wiki/Encryption) is to ensure data transfer traffic is not susceptible to potential interceptors. Encryption will be used when data is transferred between the 3 different servers, namely front-end, back-end, and database.
+Apache Shiro is a powerful and easy to use Java security framework that offers developers an intuitive yet comprehensive solution to:
+1. Authentication
+1. Authorization
 
-Example of encryption:
-![encryption-example](https://github.com/IFS4205-2018-Sem1-Team1/first-report/raw/master/images/public_key_encryption_keys.png)
+Although Apache Shiro already has a authorization functionality built into its library, we decide to employ the use of JWT for this purpose instead as JWT is much easier to implement. JWT removes the need for cookies and session which is required in Apache Shiro's framework. Since JWT only provides authorization, we would still require Apache Shiro for authentication. A justification for the use of JWT is because it comes with an extensive [library](https://jwt.io/#libraries) for Java programming which we are employing in our backend server code.
 
-There is a useful cryptographic class for use in [Java Platform SE 10](https://docs.oracle.com/javase/10/docs/api/javax/crypto/Cipher.html):
-1. Symmetric Key Encryption (AES)
-1. Asymmetric Key Encrytion (RSA)
+JSON Web Token (JWT) is an open standard (RFC 7519) that defines a compact and self-contained way for securely transmitting information between parties as a JSON object. This information can be verified and trusted because it is digitally signed. A JWT is actually a string consisting of three parts: Header, Payload, and Signature. The JWT can encrypt the secret using the [Hash-based Message Authentication Code (HMAC)](https://en.wikipedia.org/wiki/HMAC) algorithm or sign it using the [Rivest–Shamir–Adleman (RSA)](https://en.wikipedia.org/wiki/RSA_(cryptosystem)) public and private key. The purpose of [encryption](https://en.wikipedia.org/wiki/Encryption) is to ensure data transfer traffic is not susceptible to potential interceptors. This JWT is then presented everytime the subject requests protected resources.
 
-Advanced Encryption Standard (AES) is a symmetric algorithm (private-key cryptography). This involves a single key which is a shared secret between the sender and recipient. The same key is being used for both encryption and decryption. Public-key cryptography (PKI), a asymmetric algorithm, involves two related keys for each recipient involved - a private key which is a secret known only by the recipient, and a related public key which is known by all senders. The sender encrypts the message using the recipient's public key. That message can only be decrypted by a recipient with a private key matching the public key. We will be using RSA for our asymmetric algorithm.
+The following diagram shows how a JWT is obtained and used to access APIs or resources:
 
-For simplicity and efficient encryption, we can employ the use of AES with a single secret key for encryption and decryption. The secret key used has to be stored in a safe location to prevent any potential compromise. We propose to lock it in a password protected .config file that outsiders are unable to access.
+![jwt_example](https://github.com/IFS4205-2018-Sem1-Team1/first-report/raw/master/images/jwt_example.png)
 
-Possible library alternatives:
-1. [PHP](http://php.net/manual/en/refs.crypto.php)
-1. [Python](https://docs.python.org/3/library/crypto.html)
-1. [Perl](https://perldoc.perl.org/functions/crypt.html)
+When we use Apache Shiro to implement the login system, a JWT information is returned to the front-end, and it stores the token information in the request header when it interacts with the back-end server. We will then configure a custom interceptor to intercept all URL requests, retrieve the token information in the request header information, and verify the token information. If the token information generated during the login is correct, the user is logged in. Otherwise, we will reject the request and return a 401 error.
 
-AES [example](https://aesencryption.net/).
+An alternative to Apache Shiro is [Spring Security](https://spring.io/projects/spring-security). Although both frameworks function equally well, Apache Shiro requires lesser dependencies than Spring Security, making it lightweight in contrast to the heavyweight latter. Hence, we are choosing to go with Apache Shiro.
 
 ## Source Code Control & Issue Management
 
