@@ -3,21 +3,26 @@
 ## Application Integration
 
 To send data over HTTP (i.e. communication between the client and the server), we can use either GraphQL or REST. Using either technologies for development ensures Separation of Concerns, where the client-side code will largely only concern itself with the View / UI. It does not need to concern itself with writing SQL statements or the logic for accessing the database. Furthermore, by having Separation of Concerns: 
+
 1. Development of user interface, the server and the data storage can be performed independently as they are loosely coupled to each other.
 1. Debugging and spotting security flaws in our project becomes easier.
 
 We have decided to use GraphQL over REST as REST faces the following issues:
+
 1. Overfetching: Client downloads more information than is required.
 1. Underfetching: A specific endpoint doesn’t provide enough required information. This means that the client has to make multiple calls to the server through various endpoints to retrieve the required information.
 1. Slowing development: As we are not clear about the requirements / data to be displayed to the various users, we may need many iterations of user testing to verify that the data displayed to each user is as desired by the user. Because of the way REST works, both the UI & backend code needs to be updated to support these changes. This is not the case for GraphQL; only the UI needs to be updated.
 1. Harder to pick up: [Good API](https://blog.goodapi.co/rest-vs-graphql-a-critical-review-5f77392658e7) commented that "when time is the essence... when only one client that you control consumes your API, when you can’t afford to study REST or to learn HTTP in-depth or when you can’t hire someone with the expertise to help you, GraphQL might be the better way to go" simply because "True REST APIs are incredibly hard to pull off."
+2. Our project requirement has the need of uploading and downloading files. GraphQL makes this much easier to program as REST is more suited for CRUD applications only.
 
 Our project uses [Spring Boot](https://spring.io/projects/spring-boot) to create a web service using [GraphQL](https://www.baeldung.com/spring-graphql) because:
+
 1. Creating a web service can be done quickly as many of the configurations are performed automatically by Spring Boot.
 1. It's easy to [connect and perform operations on a MySQL database](https://dev.to/sambenskin/howto-integrate-a-mysql-database-into-your-java-spring-boot-graphql-service-26c).
 1. Most of us are familiar with Java, and Spring works on Java platform.
 
 Node.js is an alternative to Spring Boot. While Node.js has perks such as being easier to set up, we chose Spring Boot as:
+
 1. Not many of us are familiar with JavaScript.
 1. Both Java & Spring are more mature than JavaScript & Node.js. Therefore, there's many more high quality third-party libraries available in Java, such as the k-anonymity library (see below).
 1. Spring works better than Node.js on relational databases (MySQL is a relational database).
@@ -37,6 +42,7 @@ As discussed above, the client-side code will largely only concern itself with t
 This allows for researchers to retrieve data for research purposes without violating privacy concerns.
 
 There are 3 ways to ensure data anonymity:
+
 1. [k-anonymity](https://en.wikipedia.org/wiki/K-anonymity), where at least k individuals in the dataset share the same set of attributes. This is implemented by:
     1. Suppression. For instance, all or some values of a particular column may be omitted through replacing them with "\*".
     1. Generalisation. For instance, the medical condition can be replaced with a more general term (e.g., “Cardiovascular disease” replaced with “Heart-related”).
@@ -59,6 +65,7 @@ Since anonymising data is not the key focus of the project, we decided not to sp
 We intend to have a web application in which [authorization](https://en.wikipedia.org/wiki/Authorization) is handled by [Apache Shiro](https://shiro.apache.org/) and [authentication](https://en.wikipedia.org/wiki/Authentication) by [JSON Web Token (JWT)](https://jwt.io/). This would ensure secure data transfer when a user logs in with his/her own credentials.
 
 Apache Shiro is a powerful and easy to use Java security framework that offers developers an intuitive yet comprehensive solution to:
+
 1. Authentication
 1. Authorization
 
@@ -79,6 +86,7 @@ An alternative to Apache Shiro is [Spring Security](https://spring.io/projects/s
 Our project uses [GitHub](https://github.com/IFS4205-2018-Sem1-Team1) for source code control and issue management because most of the team are familiar and comfortable with using GitHub. This is not the case for the alternatives.
 
 There are other alternatives such as:
+
 1. Bitbucket. It allows free hosting of private repositories. However, the free version only allows for up to 5 users per repository. As our team has 6 members, we are not able to use the free version. Furthermore, there is no requirement to host our code on private repositories. 
 
     Therefore, there's no compelling reason for us to use Bitbucket over GitHub.
@@ -99,7 +107,8 @@ Our project will use [Ansible](https://www.ansible.com/) as our configuration ma
 
 A configuration management tool is great for our project as we are managing 3 remote servers with different functionalities, most likely serving their roles as a web server, an application server and a database server. 
 
-We considered an alternative which was [Octopus Deploy](https://xebialabs.com/technology/octopus-deploy/). However, due to our limitation of using Linux as well as the cost, it is not viable to us this.
+We considered an alternative which was [Octopus Deploy](https://xebialabs.com/technology/octopus-deploy/). However, due to our limitation of using Linux it is not viable to use this. The cost for this tool was too high as well.
+
 
 ##### Comparison with other tools
 The most popular configuration management tools out there are Ansible, Salt, Puppet, and Chef. 
