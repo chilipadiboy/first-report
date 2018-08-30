@@ -17,6 +17,16 @@ Our project uses [Spring Boot](https://spring.io/projects/spring-boot) to create
 1. It's easy to [connect and perform operations on a MySQL database](https://dev.to/sambenskin/howto-integrate-a-mysql-database-into-your-java-spring-boot-graphql-service-26c).
 1. Most of us are familiar with Java, and Spring works on Java platform.
 
+Node.js is an alternative to Spring Boot. While Node.js has perks such as being easier to set up, we chose Spring Boot as:
+1. Not many of us are familiar with JavaScript.
+1. Both Java & Spring are more mature than JavaScript & Node.js. Therefore, there's many more high quality third-party libraries available in Java, such as the k-anonymity library (see below).
+1. Spring works better than Node.js on relational databases (MySQL is a relational database).
+1. IDE support for Spring is better than that of Node.js. Since we aren't familiar with both Spring and Node.js, having stronger IDE support is definitely helpful in speeding up our development.
+
+## Front-end Technology
+
+As discussed above, the client-side code will largely only concern itself with the View / UI. Since UI isn't an important aspect of this project, there's no need for us to use frameworks such as Bootstrap for front-end development. We will simply code in HTML, CSS and JavaScript.
+
 ## Anonymising Data
 
 [Anonymising](http://kau.diva-portal.org/smash/get/diva2:1043735/FULLTEXT01.pdf) data makes it impossible to:
