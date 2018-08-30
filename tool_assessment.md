@@ -109,6 +109,7 @@ A configuration management tool is great for our project as we are managing 3 re
 
 We considered an alternative which was [Octopus Deploy](https://xebialabs.com/technology/octopus-deploy/). However, due to our limitation of using Linux it is not viable to use this. The cost for this tool was too high as well.
 
+
 ##### Comparison with other tools
 The most popular configuration management tools out there are Ansible, Salt, Puppet, and Chef. 
 
