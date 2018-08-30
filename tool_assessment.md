@@ -99,6 +99,8 @@ Our project will use [Ansible](https://www.ansible.com/) as our configuration ma
 
 A configuration management tool is great for our project as we are managing 3 remote servers with different functionalities, most likely serving their roles as a web server, an application server and a database server. 
 
+We considered an alternative which was [Octopus Deploy](https://xebialabs.com/technology/octopus-deploy/). However, due to our limitation of using Linux as well as the cost, it is not viable to us this.
+
 ##### Comparison with other tools
 The most popular configuration management tools out there are Ansible, Salt, Puppet, and Chef. 
 
