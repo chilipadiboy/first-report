@@ -122,3 +122,36 @@ To scan our web application for vulnerabilities like XSS, we will use [OWASP ZAP
 To find and fix known vulnerabilities in open-source dependencies, we would also use [Synk](https://github.com/Snyk/),  over SourceClear, which is not free, and Synk can be integrated easily with our Github repository.
 
 As we would need to uphold our security claims to our users, we will also consider using [BDD-Security](https://www.continuumsecurity.net/bdd-security/) to launch automated scans with these specific security claims. There are other automated security testing frameworks like GauntIt, but BDD-Security has more example tests that we can employ, and it is much easier to setup with fewer prerequisites needed on the system. 
+
+
+## Technology of the Tag
+
+We will be communicating with the RFduino tag over Bluetooth Low Energy (BLE). 
+
+Due to it being architecturally less complex for us to implement a web application instead of a native Android/iOS app that communicates with the tag and also due to the lack of other alternative bluetooth tools for web applications, we have decided to make use of the Web Bluetooth API which is written in Javascript. As Web Bluetooth is still a work in progress right now, only certain platforms have Web Bluetooth fully implemented & supported in the browsers. The full status of its implementation can be found [here](https://github.com/WebBluetoothCG/web-bluetooth/blob/master/implementation-status.md).  Chrome OS, Mac and Android have it fully supported and implemented. Windows and Linux have it partially implemented and a flag must be enabled.
+
+Due to the  I/O capabilities of the tag (no input and output capabilities), it is only possible to use the [JustWorks](https://www.digikey.com/eewiki/display/Wireless/A+Basic+Introduction+to+BLE+Security) method of BLE which offers no way of verifying the devices taking part in the connection so a MITM attack cannot be prevented. We would look at having some output capabiities for the tag. 
+
+The tag shall have 2 different functions (for 2-Factor Authentication and for supporting the validation of the ownership of health data).
+The first function of the tag is to participate in a 2-Factor Authentication system for patients.
+
+ The steps of the 2-Factor Authentication for patients are as follows:
+ 1. Patient logs into his account on the web app with his IC and a password.
+ 2. Web app verifies the patient's login credentials.
+ 3. If the verification is successful, patient brings his tag close to the device running the web app.
+ 4. Patient's tag sends a pair of values (a randomly generated number and an encrypted value of the randomly generated number using the patient's private key) to the web app.
+ 5. Web app verifies the patient's tag using the patient's public key.
+ 6. If the verification is successful, patient logs in successfully.
+ 7. Otherwise, if any of the verifications fail, patient will not be logged in.
+
+The second function of the tag is to support the validation of the ownership of health data. 
+In the scenario where a therapist photographs a wound on an unconscious patient, we would need to ensure that the photo belongs to that patient. 
+ 
+ The steps of that scenario are listed below:
+ 1. Therapist logs into his account on the web app and types in the patient ID. 
+ 2. Therapist then takes a photo and uploads onto the web app.
+ 3. Web app pairs with the tag nearby on the patient. 
+ 3. Web app sends a hash of the image to the tag. 
+ 4. The tag signs it with its private key and sends it back to the web app. 
+ 5. Web app decrypts with the tag's public key. If the decrypted content is the same as the original hash sent, the picture is now ensured to belong to the patient because only the patient has the tag. 
+ 
