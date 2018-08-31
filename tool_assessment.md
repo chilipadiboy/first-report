@@ -117,41 +117,27 @@ Puppet and Chef are pull-based configuration management tools so that means that
 
 ## Security Tools
 
-To scan our web application for vulnerabilities like XSS, we will use [OWASP ZAP](https://www.zaproxy.org/). [This article by Upguard](https://www.upguard.com/articles/arachni-vs-owasp-zap) makes a comparison between two of the most popular open source web application pen testing tools - Arachni and OWASP ZAP and we have decided on ZAP as it has more extensive community resources. 
+To scan our web application for vulnerabilities like XSS, we will use [OWASP ZAP](https://www.zaproxy.org/). [This article by Upguard](https://www.upguard.com/articles/arachni-vs-owasp-zap) makes a comparison between two of the most popular open source web application penetration testing tools - Arachni and OWASP ZAP and we have decided on ZAP as it has more extensive community resources. 
 
-To find and fix known vulnerabilities in open-source dependencies, we would also use [Synk](https://github.com/Snyk/),  over SourceClear, which is not free, and Synk can be integrated easily with our Github repository.
+To find and fix known vulnerabilities in open-source dependencies, we would also use [Synk](https://github.com/Snyk/),over SourceClear, which is not free, and Synk can be integrated easily with our Github repository.
 
 As we would need to uphold our security claims to our users, we will also consider using [BDD-Security](https://www.continuumsecurity.net/bdd-security/) to launch automated scans with these specific security claims. There are other automated security testing frameworks like GauntIt, but BDD-Security has more example tests that we can employ, and it is much easier to setup with fewer prerequisites needed on the system. 
 
+## Penetration Testing Tools
 
-## Technology of the Tag
+For our penetration testing exercise we will use the following tools for specific purposes:
 
-We will be communicating with the RFduino tag over Bluetooth Low Energy (BLE). 
+### Web front end
 
-Due to it being architecturally less complex for us to implement a web application instead of a native Android/iOS app that communicates with the tag and also due to the lack of other alternative bluetooth tools for web applications, we have decided to make use of the Web Bluetooth API which is written in Javascript. As Web Bluetooth is still a work in progress right now, only certain platforms have Web Bluetooth fully implemented & supported in the browsers. The full status of its implementation can be found [here](https://github.com/WebBluetoothCG/web-bluetooth/blob/master/implementation-status.md).  Chrome OS, Mac and Android have it fully supported and implemented. Windows and Linux have it partially implemented and a flag must be enabled.
+1. [Tamper Data](https://chrome.google.com/webstore/detail/tamper-chrome-extension/hifhgpdkfodlpnlmlnmhchnkepplebkb?hl=en) and [Paros Proxy](http://sectools.org/tool/paros/) for testing the application on web based attacks (e.g. SQL injection, XSS etc). This will also be used to find logical errors in their web application.
+2. [Wireshark](https://www.wireshark.org/) to observe if any sensitive data being transmitted unsafely.
+3. [Netwox](http://ntwox.sourceforge.net/) to attempt man in the middle attacks.
 
-Due to the  I/O capabilities of the tag (no input and output capabilities), it is only possible to use the [JustWorks](https://www.digikey.com/eewiki/display/Wireless/A+Basic+Introduction+to+BLE+Security) method of BLE which offers no way of verifying the devices taking part in the connection so a MITM attack cannot be prevented. We would look at having some output capabiities for the tag. 
+### Back end
+1. [Nessus](https://www.tenable.com/) for a general scan of the servers to check for any vulnerabilities. Nessus is one of the best scanners in the industry.
+2. [Nexpose](https://www.rapid7.com/products/nexpose/) is another scanner we will use to scan for vulnerabilities. It has the added bonus of being created by the company who created metasploit.
+3. [Metasploit](https://www.metasploit.com/) in order to exploit any vulnerabilities in an attempt to install a payload (Malware etc).
+4. John the ripper for any password cracking purposes.
+5. NMAP for identification and general reconaisscence.
 
-The tag shall have 2 different functions (for 2-Factor Authentication and for supporting the validation of the ownership of health data).
-The first function of the tag is to participate in a 2-Factor Authentication system for patients.
-
- The steps of the 2-Factor Authentication for patients are as follows:
- 1. Patient logs into his account on the web app with his IC and a password.
- 2. Web app verifies the patient's login credentials.
- 3. If the verification is successful, patient brings his tag close to the device running the web app.
- 4. Patient's tag sends a pair of values (a randomly generated number and an encrypted value of the randomly generated number using the patient's private key) to the web app.
- 5. Web app verifies the patient's tag using the patient's public key.
- 6. If the verification is successful, patient logs in successfully.
- 7. Otherwise, if any of the verifications fail, patient will not be logged in.
-
-The second function of the tag is to support the validation of the ownership of health data. 
-In the scenario where a therapist photographs a wound on an unconscious patient, we would need to ensure that the photo belongs to that patient. 
- 
- The steps of that scenario are listed below:
- 1. Therapist logs into his account on the web app and types in the patient ID. 
- 2. Therapist then takes a photo and uploads onto the web app.
- 3. Web app pairs with the tag nearby on the patient. 
- 3. Web app sends a hash of the image to the tag. 
- 4. The tag signs it with its private key and sends it back to the web app. 
- 5. Web app decrypts with the tag's public key. If the decrypted content is the same as the original hash sent, the picture is now ensured to belong to the patient because only the patient has the tag. 
- 
+Most of these tools can be found installed on [Kali Linux](https://www.kali.org/).
