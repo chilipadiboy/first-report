@@ -24,7 +24,7 @@ Our project uses [Spring Boot](https://spring.io/projects/spring-boot) to create
 Node.js is an alternative to Spring Boot. While Node.js has perks such as being easier to set up, we chose Spring Boot as:
 
 1. Not many of us are familiar with JavaScript.
-1. Both Java & Spring are more mature than JavaScript & Node.js. Therefore, there's many more high quality third-party libraries available in Java, such as the k-anonymity library (see below).
+1. Both Java & Spring are more mature than JavaScript & Node.js. Therefore, there's many more high-quality third-party libraries available in Java, such as the k-anonymity library (see below).
 1. Spring works better than Node.js on relational databases (MySQL is a relational database).
 1. IDE support for Spring is better than that of Node.js. Since we aren't familiar with both Spring and Node.js, having stronger IDE support is definitely helpful in speeding up our development.
 
@@ -69,9 +69,9 @@ Apache Shiro is a powerful and easy to use Java security framework that offers d
 1. Authentication
 1. Authorization
 
-Although Apache Shiro already has a authorization functionality built into its library, we decide to employ the use of JWT for this purpose instead as JWT is much easier to implement. JWT removes the need for cookies and session which is required in Apache Shiro's framework. Since JWT only provides authorization, we would still require Apache Shiro for authentication. A justification for the use of JWT is because it comes with an extensive [library](https://jwt.io/#libraries) for Java programming which we are employing in our backend server code.
+Although Apache Shiro already has an authorization functionality built into its library, we decide to employ the use of JWT for this purpose instead as JWT is much easier to implement. JWT removes the need for cookies and session which is required in Apache Shiro's framework. Since JWT only provides authorization, we would still require Apache Shiro for authentication. A justification for the use of JWT is because it comes with an extensive [library](https://jwt.io/#libraries) for Java programming which we are employing in our backend server code.
 
-JSON Web Token (JWT) is an open standard (RFC 7519) that defines a compact and self-contained way for securely transmitting information between parties as a JSON object. This information can be verified and trusted because it is digitally signed. A JWT is actually a string consisting of three parts: Header, Payload, and Signature. The JWT can encrypt the secret using the [Hash-based Message Authentication Code (HMAC)](https://en.wikipedia.org/wiki/HMAC) algorithm or sign it using the [Rivest–Shamir–Adleman (RSA)](https://en.wikipedia.org/wiki/RSA_(cryptosystem)) public and private key. The purpose of [encryption](https://en.wikipedia.org/wiki/Encryption) is to ensure data transfer traffic is not susceptible to potential interceptors. This JWT is then presented everytime the subject requests protected resources.
+JSON Web Token (JWT) is an open standard (RFC 7519) that defines a compact and self-contained way for securely transmitting information between parties as a JSON object. This information can be verified and trusted because it is digitally signed. A JWT is actually a string consisting of three parts: Header, Payload, and Signature. The JWT can encrypt the secret using the [Hash-based Message Authentication Code (HMAC)](https://en.wikipedia.org/wiki/HMAC) algorithm or sign it using the [Rivest–Shamir–Adleman (RSA)](https://en.wikipedia.org/wiki/RSA_(cryptosystem)) public and private key. The purpose of [encryption](https://en.wikipedia.org/wiki/Encryption) is to ensure data transfer traffic is not susceptible to potential interceptors. This JWT is then presented every time the subject requests protected resources.
 
 The following diagram shows how a JWT is obtained and used to access APIs or resources:
 
@@ -125,7 +125,7 @@ As we would need to uphold our security claims to our users, we will also consid
 
 ## Penetration Testing Tools
 
-For our penetration testing exercise we will use the following tools for specific purposes:
+For our penetration testing exercise, we will use the following tools for specific purposes:
 
 ### Web front end
 
@@ -135,10 +135,10 @@ For our penetration testing exercise we will use the following tools for specifi
 
 ### Back end
 1. [Nessus](https://www.tenable.com/) for a general scan of the servers to check for any vulnerabilities. Nessus is one of the best scanners in the industry.
-2. [Nexpose](https://www.rapid7.com/products/nexpose/) is another scanner we will use to scan for vulnerabilities. It has the added bonus of being created by the company who created metasploit.
+2. [Nexpose](https://www.rapid7.com/products/nexpose/) is another scanner we will use to scan for vulnerabilities. It has the added bonus of being created by the company who created Metasploit.
 3. [Metasploit](https://www.metasploit.com/) in order to exploit any vulnerabilities in an attempt to install a payload (Malware etc).
 4. John the ripper for any password cracking purposes.
-5. NMAP for identification and general reconaisscence.
+5. NMAP for identification and general reconnaissance.
 
 Most of these tools can be found installed on [Kali Linux](https://www.kali.org/).
 
@@ -146,9 +146,9 @@ Most of these tools can be found installed on [Kali Linux](https://www.kali.org/
 
 We will be communicating with the RFduino tag over Bluetooth Low Energy (BLE). 
 
-Due to it being architecturally less complex for us to implement a web application instead of a native Android/iOS app that communicates with the tag and also due to the lack of other alternative bluetooth tools for web applications, we have decided to make use of the Web Bluetooth API which is written in Javascript. As Web Bluetooth is still a work in progress right now, only certain platforms have Web Bluetooth fully implemented & supported in the browsers. The full status of its implementation can be found [here](https://github.com/WebBluetoothCG/web-bluetooth/blob/master/implementation-status.md).  Chrome OS, Mac and Android have it fully supported and implemented. Windows and Linux have it partially implemented and a flag must be enabled.
+Due to it being architecturally less complex for us to implement a web application instead of a native Android/iOS app that communicates with the tag and also due to the lack of other alternative Bluetooth tools for web applications, we have decided to make use of the Web Bluetooth API which is written in JavaScript. As Web Bluetooth is still a work in progress right now, only certain platforms have Web Bluetooth fully implemented & supported in the browsers. The full status of its implementation can be found [here](https://github.com/WebBluetoothCG/web-bluetooth/blob/master/implementation-status.md).  Chrome OS, Mac and Android have it fully supported and implemented. Windows and Linux have it partially implemented and a flag must be enabled.
 
-Due to the  I/O capabilities of the tag (no input and output capabilities), it is only possible to use the [JustWorks](https://www.digikey.com/eewiki/display/Wireless/A+Basic+Introduction+to+BLE+Security) method of BLE which offers no way of verifying the devices taking part in the connection so a MITM attack cannot be prevented. We would look at having some output capabiities for the tag. 
+Due to the  I/O capabilities of the tag (no input and output capabilities), it is only possible to use the [JustWorks](https://www.digikey.com/eewiki/display/Wireless/A+Basic+Introduction+to+BLE+Security) method of BLE which offers no way of verifying the devices taking part in the connection so a MITM attack cannot be prevented. We would look at having some output capabilities for the tag. 
 
 The tag shall have 2 different functions (for 2-Factor Authentication and for supporting the validation of the ownership of health data).
 The first function of the tag is to participate in a 2-Factor Authentication system for patients.

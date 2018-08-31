@@ -42,7 +42,7 @@
 - Coming up with the specifications and the design of the database
 - Implementation of database with MySQL
 - Generate and populate the database with large set of plausible data
-- Design API required for secure and authentic update of the databse with the external data by external parties
+- Design API required for secure and authentic update of the database with the external data by external parties
 
 
 ## 4. Project Timeline
@@ -58,7 +58,7 @@
 
 ### Prototype Demo - Week 4 to 7
 
-##### Setup Subsytems
+##### Setup Subsystems
 - Setup Ansible configuration management tool and use it to configure servers and make sure required services are up and running
 - Setup web service using Spring Boot and GraphQL
 - Setup Multi-factor Authentication Tag BLE communication capability
@@ -66,7 +66,7 @@
 - Basic user interface and design
 
 ##### Integrated Product
-- Integration of all subsystems i.e. Tag + Front-end + Back-end connected together, allowing information flow between systems
+- Integration of all subsystems, namely Tag + Front-end + Back-end, allowing information flow between systems
 - Basic functionalities of each individual subsystem may not be fully achieved yet
 
 ##### Minimum Viable Product
@@ -81,7 +81,7 @@
 
 ##### Implementation of security features
 - Hardening of subsystems
-- Looking out for possible and known vulnerablities and fixing them
+- Looking out for possible and known vulnerabilities and fixing them
 
 ##### Additional features
 - Implement any additional features that improves on the functionality and security of our subsystem
