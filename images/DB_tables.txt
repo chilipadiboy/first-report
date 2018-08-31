@@ -1,0 +1,113 @@
+CREATE TABLE users (
+ic CHAR(9) PRIMARY KEY,
+name VARCHAR(64) NOT NULL,
+email VARCHAR(64) UNIQUE NOT NULL,
+phone INT(8) UNIQUE NOT NULL,
+hash VARCHAR(128) NOT NULL,
+salt VARCHAR(8) NOT NULL,
+address VARCHAR(128) NOT NULL,
+age INT NOT NULL
+);
+
+CREATE TABLE therapists (
+ic CHAR(9),
+name VARCHAR(64),
+email VARCHAR(64),
+phone INT(8),
+hash VARCHAR(128),
+salt VARCHAR(8),
+address VARCHAR(128),
+age INT,
+FOREIGN KEY (ic, name, email, phone, hash, salt, address, age) 
+REFERENCES users(ic, name, email, phone, hash, salt, address, age) 
+ON DELETE CASCADE ON UPDATE CASCADE,
+PRIMARY KEY (ic)
+);
+
+CREATE TABLE patients (
+ic CHAR(8),
+name VARCHAR(64),
+email VARCHAR(64),
+phone INT(8),
+hash VARCHAR(128),
+salt VARCHAR(8),
+address VARCHAR(128),
+age INT,
+public_key VARCHAR(256) NOT NULL,
+nok_name VARCHAR(64),
+nok_phone INT(8),
+FOREIGN KEY (ic, name, email, phone, hash, salt, address, age) 
+REFERENCES users(ic, name, email, phone, hash, salt, address, age) 
+ON DELETE CASCADE ON UPDATE CASCADE,
+PRIMARY KEY (ic)
+);
+
+CREATE TABLE researchers (
+ic CHAR(8),
+name VARCHAR(64),
+email VARCHAR(64),
+phone INT(8),
+hash VARCHAR(128),
+salt VARCHAR(8),
+address VARCHAR(128),
+age INT,
+FOREIGN KEY (ic, name, email, phone, hash, salt, address, age) 
+REFERENCES users(ic, name, email, phone, hash, salt, address, age) 
+ON DELETE CASCADE ON UPDATE CASCADE,
+PRIMARY KEY (ic)
+);
+
+CREATE TABLE administrators (
+ic CHAR(8),
+name VARCHAR(64),
+email VARCHAR(64),
+phone INT(8),
+hash VARCHAR(128),
+salt VARCHAR(8),
+address VARCHAR(128),
+age INT,
+FOREIGN KEY (ic, name, email, phone, hash, salt, address, age) 
+REFERENCES users(ic, name, email, phone, hash, salt, address, age) 
+ON DELETE CASCADE ON UPDATE CASCADE,
+PRIMARY KEY (ic)
+);
+
+CREATE TABLE records (
+type VARCHAR(16) NOT NULL,
+subtype VARCHAR(16) NOT NULL,
+title VARCHAR(64) NOT NULL,
+date_time DATETIME,
+owner_ic CHAR(8),
+signature VARCHAR(128),
+content VARCHAR(65536) NOT NULL,
+FOREIGN KEY (owner_ic) REFERENCES users(ic) 
+ON DELETE CASCADE ON UPDATE CASCADE,
+PRIMARY KEY (date_time, owner_ic)
+);
+
+CREATE TABLE treats (
+therapist_ic CHAR(9),
+patient_ic CHAR(9),
+start_date DATE NOT NULL,
+end_date DATE NOT NULL CHECK(end_date >= start_date),
+FOREIGN KEY (therapist_ic) REFERENCES therapists(ic) 
+ON DELETE CASCADE ON UPDATE CASCADE,
+FOREIGN KEY (patient_ic) REFERENCES patients(ic) 
+ON DELETE CASCADE ON UPDATE CASCADE,
+PRIMARY KEY (therapist_ic, patient_ic)
+);
+
+CREATE TABLE gives_permission_to (
+therapist_ic CHAR(9),
+patient_ic CHAR(9),
+owner_ic CHAR(9) CHECK(owner_ic = therapist_ic OR owner_ic = patient_ic),
+expiry_date DATE NOT NULL,
+record_date_time DATETIME CHECK(expiry_date >= record_date_time),
+FOREIGN KEY (therapist_ic) REFERENCES therapists(ic) 
+ON DELETE CASCADE ON UPDATE CASCADE,
+FOREIGN KEY (patient_ic) REFERENCES patients(ic) 
+ON DELETE CASCADE ON UPDATE CASCADE,
+FOREIGN KEY (owner_ic, record_date_time) REFERENCES records(owner_ic, date_time) 
+ON DELETE CASCADE ON UPDATE CASCADE,
+PRIMARY KEY (therapist_ic, patient_ic, owner_ic, record_date_time)
+);
