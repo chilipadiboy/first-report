@@ -2,7 +2,7 @@
 
 ## ER Diagram
 The ER diagram for our database is as follows:
-![ER diagram](https://github.com/IFS4205-2018-Sem1-Team1/first-report/blob/ERDiagram/images/SimplifiedERDiagram.png)
+![ER diagram](https://github.com/IFS4205-2018-Sem1-Team1/first-report/raw/master/images/SimplifiedERDiagram.png)
 
 ## Tables
 The tables for our database can be found in the text file [here](https://github.com/IFS4205-2018-Sem1-Team1/first-report/blob/ERDiagram/images/DB_tables.txt).
