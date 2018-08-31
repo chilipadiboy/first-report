@@ -119,7 +119,7 @@ Puppet and Chef are pull-based configuration management tools so that means that
 
 To scan our web application for vulnerabilities like XSS, we will use [OWASP ZAP](https://www.zaproxy.org/). [This article by Upguard](https://www.upguard.com/articles/arachni-vs-owasp-zap) makes a comparison between two of the most popular open source web application penetration testing tools - Arachni and OWASP ZAP and we have decided on ZAP as it has more extensive community resources. 
 
-To find and fix known vulnerabilities in open-source dependencies, we would also use [Synk](https://github.com/Snyk/),  over SourceClear, which is not free, and Synk can be integrated easily with our Github repository.
+To find and fix known vulnerabilities in open-source dependencies, we would also use [Synk](https://github.com/Snyk/),over SourceClear, which is not free, and Synk can be integrated easily with our Github repository.
 
 As we would need to uphold our security claims to our users, we will also consider using [BDD-Security](https://www.continuumsecurity.net/bdd-security/) to launch automated scans with these specific security claims. There are other automated security testing frameworks like GauntIt, but BDD-Security has more example tests that we can employ, and it is much easier to setup with fewer prerequisites needed on the system. 
 
