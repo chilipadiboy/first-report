@@ -47,12 +47,9 @@
 
 ## 4. Project Timeline
 
-![Gantt Chart](https://user-images.githubusercontent.com/19281514/44857740-02b71600-aca3-11e8-8447-d1349a06485f.jpeg)
+![Gantt Chart](https://user-images.githubusercontent.com/19281514/44902155-c8e61e00-ad3b-11e8-8621-7b5e3598a1c6.png)
 
 ### Design Report - Week 3
-
-##### Project Meeting with Prof
-- Clarify any questions with regards to the subsystems implementation or Design Report requirements
 
 ##### Write Design Report
 - Propose specifications and designs for each subsystem with regards to implementation, interfaces, controls and protocols
@@ -62,11 +59,10 @@
 ### Prototype Demo - Week 4 to 7
 
 ##### Setup Subsytems
-- Setup Ansible configuration management tool
+- Setup Ansible configuration management tool and use it to configure servers and make sure required services are up and running
 - Setup web service using Spring Boot and GraphQL
 - Setup Multi-factor Authentication Tag BLE communication capability
 - Setup database and create tables
-- Setup and configuration of servers to make sure required services are up and running
 - Basic user interface and design
 
 ##### Integrated Product
@@ -74,21 +70,21 @@
 - Basic functionalities of each individual subsystem may not be fully achieved yet
 
 ##### Minimum Viable Product
-- Implementation of all basic features proposed in Design report
+- Implementation of all basic features proposed in Design Report
 
 ##### Testing and Refinement
-- Improve on product functionality for a fully integrate and fully functional Healthcare records system
-- Some subsystems may not be fully secure yet
+- Improve on product functionality for a fully integrated and fully functional healthcare records system
+- Subsystems may not be fully secure yet
 
 
 ### Final Report and Demo - Week 8 to 11
 
 ##### Implementation of security features
 - Hardening of subsystems
-- Looking out for possible and known vulnerablities and shutting them down
+- Looking out for possible and known vulnerablities and fixing them
 
 ##### Additional features
-- Implement any additional features that we find along the way that we feel will be able to improve on the functionality and security of our subsystem
+- Implement any additional features that improves on the functionality and security of our subsystem
 
 ##### Write Final Report
 - Finish up Final Report
