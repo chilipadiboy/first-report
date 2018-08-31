@@ -117,8 +117,26 @@ Puppet and Chef are pull-based configuration management tools so that means that
 
 ## Security Tools
 
-To scan our web application for vulnerabilities like XSS, we will use [OWASP ZAP](https://www.zaproxy.org/). [This article by Upguard](https://www.upguard.com/articles/arachni-vs-owasp-zap) makes a comparison between two of the most popular open source web application pen testing tools - Arachni and OWASP ZAP and we have decided on ZAP as it has more extensive community resources. 
+To scan our web application for vulnerabilities like XSS, we will use [OWASP ZAP](https://www.zaproxy.org/). [This article by Upguard](https://www.upguard.com/articles/arachni-vs-owasp-zap) makes a comparison between two of the most popular open source web application penetration testing tools - Arachni and OWASP ZAP and we have decided on ZAP as it has more extensive community resources. 
 
 To find and fix known vulnerabilities in open-source dependencies, we would also use [Synk](https://github.com/Snyk/),  over SourceClear, which is not free, and Synk can be integrated easily with our Github repository.
 
 As we would need to uphold our security claims to our users, we will also consider using [BDD-Security](https://www.continuumsecurity.net/bdd-security/) to launch automated scans with these specific security claims. There are other automated security testing frameworks like GauntIt, but BDD-Security has more example tests that we can employ, and it is much easier to setup with fewer prerequisites needed on the system. 
+
+## Penetration Testing Tools
+
+For our penetration testing excercise we will use the following tools for specific purposes:
+
+### Web front end
+
+1. [Tamper Data](https://chrome.google.com/webstore/detail/tamper-chrome-extension/hifhgpdkfodlpnlmlnmhchnkepplebkb?hl=en) and [Paros Proxy](http://sectools.org/tool/paros/) for testing the application on web based attacks (e.g. SQL injection, XSS etc). This will also be used to find logical errors in their web application.
+2. [Wireshark](https://www.wireshark.org/) to observe if any sensitive data being transmitted unsafely
+3. [Netwox](http://ntwox.sourceforge.net/) to attempt man in the middle attacks
+
+### Back end
+1. [Nessus](https://www.tenable.com/) for a general scan of the servers to check for any vulnerabilities. Nessus is one of the best scanners in the industry.
+2. [Nexpose](https://www.rapid7.com/products/nexpose/) is another scanner we will use to scan for vulnerabilities. It has the added bonus of being created by the company who created metasploit.
+2. [Metasploit](https://www.metasploit.com/) in order to exploit any vulnerabilities in an attempt to install a payload (Malware etc)
+3. John the ripper for any password cracking purposes
+
+Most of these tools can be found installed on [Kali Linux](https://www.kali.org/).
